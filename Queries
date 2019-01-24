@@ -1,0 +1,21 @@
+1> Write a query that will help the owner of Cocoa Confections find the COUNT of all orders placed in 2016, by customer e-mail address, sorted descending?
+
+   select count(email) from customers inner join orders on customers.customer_id = orders.customer_id and  orders.order_placed_date 
+between '01/1/2016' and  '12/31/2016' group by customers.email order by count(email) DESC;
+
+2>Write An SQL Query To Print Details Of The Workers Who Are Also Managers.
+
+  select * from workers where workers.WORKER_ID IN (select WORKER_REF_ID from title where WORKER_TITLE = 'Manager');
+
+3>Write An SQL Query To Fetch The List Of Employees With The Same Salary.
+
+  select * from workers , (select Salary from workers group by Salary having count(Salary) > 1) as Salaries where workers.Salary = 
+  Salaries.Salary;
+
+4> Write An SQL Query To Fetch The Departments That Have Less Than Five People In It.
+
+  select Department from workers group by Department having count(WORKER_ID) <5;
+
+5> Write An SQL Query To Fetch The Names Of Workers Who Earn The Highest Salary.
+
+select first_name, last_name,salary from workers where salary = (select max(salary) from workers); 
